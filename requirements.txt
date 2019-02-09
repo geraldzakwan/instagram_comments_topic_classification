@@ -1,2 +1,5 @@
 sanic
 python-dotenv
+pandas
+sklearn
+xgboost
