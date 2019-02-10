@@ -11,7 +11,7 @@ load_dotenv()
 
 class Training():
     def __init__(self):
-        self.classifier = os.getenv('TRAINING_CLASSIFIER')
+        pass
 
     def preprocess_corpus(self, corpus):
         pass
@@ -46,7 +46,7 @@ class Training():
         accuracy = accuracy_score(y_test, predictions)
         print("Accuracy: %.2f%%" % (accuracy * 100.0))
 
-        with open('lib/model/' + self.classifier + '.pickle', 'wb') as outfile:
+        with open('lib/model/' + os.getenv('TRAINING_FEATURE') + '_' + os.getenv('TRAINING_CLASSIFIER')+ '_' + os.getenv('TRAINING_DETAIL') + '.pickle', 'wb') as outfile:
             pickle.dump(model, outfile)
 
 if __name__ == '__main__':

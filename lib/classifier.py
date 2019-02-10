@@ -6,10 +6,11 @@ load_dotenv()
 
 class Classifier():
     def __init__(self):
-        with open('lib/model/' + os.getenv('SERVING_CLASSIFIER') + '.pickle', 'rb') as infile:
+        with open('lib/model/' + os.getenv('SERVING_FEATURE') + '_' + os.getenv('SERVING_CLASSIFIER')+ '_' + os.getenv('SERVING_DETAIL') + '.pickle', 'rb') as infile:
             self.classifier = pickle.load(infile)
 
     def preprocess_text(self, text):
+        # TO-DO: Use Wira/Ramos normalization & stemmer module here
         pass
 
     def get_class(self, text):
