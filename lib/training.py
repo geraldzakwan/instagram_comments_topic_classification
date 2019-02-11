@@ -54,6 +54,9 @@ class Training():
             # Ignore terms which appear in less than 5 sentence
             tfidfconverter = TfidfVectorizer(min_df=5, max_df=0.8)
             X = tfidfconverter.fit_transform(corpus_data).toarray()
+
+            with open('lib/model/' + self.path_or_url + '/tfidf.pickle', 'wb') as outfile:
+                pickle.dump(tfidfconverter, outfile)
         elif 'w2v' in self.model_name:
             # TO-DO: Need to save word2vec txt file as well to load later if needed
             pass
