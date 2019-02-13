@@ -39,6 +39,19 @@ class Classifier():
             if self.label_dict[label] == label_float:
                 return label
 
+    def get_classes(self, texts):
+        labels = []
+
+        for text in texts:
+            text = self.preprocess_text(text)
+            label_float = self.classifier.predict(self.extract_feature(text)[0])
+
+            for label in self.label_dict:
+                if self.label_dict[label] == label_float:
+                    labels.append(label)
+
+        return labels
+
 if __name__ == '__main__':
     classifier = Classifier()
     print(classifier.get_class('Contoh kalimat'))

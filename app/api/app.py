@@ -27,13 +27,6 @@ async def healthz(_):
 @app.route('/get_class', methods=['POST'])
 async def get_class(request):
     data = request.json
-    if 'id' not in data:
-        return response.json({
-            'status': 400,
-            'data' : {
-                'err' : 'Missing "id" parameter'
-            }
-        })
     if 'text' not in data:
         return response.json({
             'status': 400,
@@ -45,9 +38,27 @@ async def get_class(request):
     return response.json({
         'status': 200,
         'data' : {
-            'id' : data['id'],
             'text': data['text'],
             'label': label
+        }
+    })
+
+@app.route('/get_classes', methods=['POST'])
+async def get_class(request):
+    data = request.json
+    if 'texts' not in data:
+        return response.json({
+            'status': 400,
+            'data' : {
+                'err' : 'Missing "texts" parameter'
+            }
+        })
+    labels = app.cls.get_classes(data['texts'])
+    return response.json({
+        'status': 200,
+        'data' : {
+            'texts': data['texts'],
+            'labels': labels
         }
     })
 
