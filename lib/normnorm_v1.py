@@ -29,7 +29,7 @@ class Normnorm:
 
     def checkPunct(self, token):
         return token in string.punctuation
-    
+
     def checkRE(self, token):
         return 'RE_' in token or 'RESI_' in token
 
@@ -38,7 +38,7 @@ class Normnorm:
             if elm[0] == token:
                 return True
         return False
-    
+
     def checkNonformal(self, token):
         for elm in self.nonformal_list:
             if token == elm[0]:

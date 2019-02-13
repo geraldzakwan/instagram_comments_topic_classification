@@ -1,5 +1,6 @@
 import os
 import pickle
+import normnorm_v1 as NN
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -22,14 +23,16 @@ class Classifier():
                 label_string, label_float = line.split()
                 self.label_dict[label_string] = float(label_float)
 
+        self.normalization = NN.Normnorm()
+
     def preprocess_text(self, text):
-        # TO-DO: Use Wira/Ramos normalization & stemmer module here
-        pass
+        return self.normalization.norm(text)
 
     def extract_feature(self, text):
         return self.feature_extractor.transform([text])
 
     def get_class(self, text):
+        text = self.preprocess_text(text)
         label_float = self.classifier.predict(self.extract_feature(text)[0])
 
         for label in self.label_dict:
@@ -38,4 +41,4 @@ class Classifier():
 
 if __name__ == '__main__':
     classifier = Classifier()
-    print(classifier.get_class('Coki Muslim bangsat'))
+    print(classifier.get_class('Contoh kalimat'))

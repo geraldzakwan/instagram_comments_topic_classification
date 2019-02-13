@@ -4,6 +4,8 @@ import pickle
 import numpy as np
 import pandas as pd
 
+import normnorm_v1 as NN
+
 from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
@@ -17,6 +19,7 @@ class Training():
     def __init__(self):
         self.path_or_url = os.getenv('PATH_OR_URL')
         self.model_name = os.getenv('TRAINING_FEATURE') + '_' + os.getenv('TRAINING_CLASSIFIER') + '_' + os.getenv('TRAINING_DETAIL')
+        self.normalization = NN.Normnorm()
 
     # Expecting Google sheet url or CSV file
     def build_corpus(self):
@@ -44,8 +47,12 @@ class Training():
         return list_of_sentence, list_of_label
 
     def preprocess_corpus(self, corpus_data):
-        # TO-DO: Use Wira/Ramos normalization & stemmer module here
-        return corpus_data
+        preprocessed_corpus_data = []
+
+        for sentence in corpus_data:
+            preprocessed_corpus_data.append(self.normalization.norm(sentence))
+
+        return preprocessed_corpus_data
 
     # Return the extracted feature (TFIDF/w2v) from corpus
     def build_train_data(self, corpus_data, corpus_label):
