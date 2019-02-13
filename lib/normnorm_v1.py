@@ -1,9 +1,9 @@
 import csv
 import string
-import enchant
 import utils as ut
 from utils import stemmer
 from utils import preprocess as pr
+from nltk.corpus import words as words
 
 ST = stemmer.Stemmer()
 
@@ -11,7 +11,7 @@ class Normnorm:
     def __init__(self):
         self.DATA_KBBI = ut.DATA_KBBI
         self.KORPUS_NONFORMAL = ut.KORPUS_NONFORMAL
-        self.eng_dict = enchant.Dict("en_US")
+        self.eng_dict = set(words.words())
 
         with open(self.DATA_KBBI, 'r') as f_kbbi:
             data_kbbi = csv.reader(f_kbbi)
@@ -25,7 +25,7 @@ class Normnorm:
 
 
     def checkEnglish(self, token):
-        return self.eng_dict.check(token)
+        return token in self.eng_dict
 
     def checkPunct(self, token):
         return token in string.punctuation
