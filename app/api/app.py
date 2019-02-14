@@ -24,6 +24,17 @@ async def healthz(_):
         }
     })
 
+@app.route('/get_info', methods=['GET'])
+async def healthz(_):
+    info = app.cls.get_info()
+
+    return response.json({
+        'status': 200,
+        'data' : {
+            'labels': info['labels']
+        }
+    })
+
 @app.route('/get_class', methods=['POST'])
 async def get_class(request):
     data = request.json
@@ -34,12 +45,12 @@ async def get_class(request):
                 'err' : 'Missing "text" parameter'
             }
         })
-    label = app.cls.get_class(data['text'])
+
     return response.json({
         'status': 200,
         'data' : {
             'text': data['text'],
-            'label': label
+            'label': app.cls.get_class(data['text'])
         }
     })
 
@@ -53,12 +64,11 @@ async def get_class(request):
                 'err' : 'Missing "texts" parameter'
             }
         })
-    labels = app.cls.get_classes(data['texts'])
     return response.json({
         'status': 200,
         'data' : {
             'texts': data['texts'],
-            'labels': labels
+            'labels': app.cls.get_classes(data['texts'])
         }
     })
 

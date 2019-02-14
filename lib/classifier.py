@@ -26,6 +26,12 @@ class Classifier():
 
         self.normalization = NN.Normnorm()
 
+    def get_info(self):
+        info = {}
+        info['labels'] = self.label_dict.keys()
+
+        return info
+
     def preprocess_text(self, text):
         return self.normalization.norm(text.lower())
 
