@@ -21,7 +21,7 @@ class Classifier():
 
         with open('lib/corpus/' + self.path_or_url + '/metadata.txt', 'r') as infile:
             for line in infile:
-                label_string, label_float = line.split()
+                label_string, label_float, count_train = line.split()
                 self.label_dict[label_string] = float(label_float)
 
         self.normalization = NN.Normnorm()

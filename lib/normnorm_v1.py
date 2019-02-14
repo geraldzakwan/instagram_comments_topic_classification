@@ -57,26 +57,29 @@ class Normnorm:
         pr_replace = pr.replace_all(record)
         pr_token = pr.tokenize(pr_replace)
         for token in pr_token:
-            if self.checkPunct(token):
-                norms.append(token)
-            elif self.checkEnglish(token):
-                norms.append(token)
-            elif self.checkKBBI(token):
-                norms.append(token)
-            else:
-                check_nonformal, new_token = self.checkNonformal(token)
-                if check_nonformal:
-                    norms.append(new_token)
-                elif self.checkStem(token):
+            try:
+                if self.checkPunct(token):
+                    norms.append(token)
+                elif self.checkEnglish(token):
+                    norms.append(token)
+                elif self.checkKBBI(token):
                     norms.append(token)
                 else:
-                    norms.append(token)
+                    check_nonformal, new_token = self.checkNonformal(token)
+                    if check_nonformal:
+                        norms.append(new_token)
+                    elif self.checkStem(token):
+                        norms.append(token)
+                    else:
+                        norms.append(token)
+            except:
+                norms.append(token)
 
         return ' '.join(norms)
 
 
 if __name__ == '__main__':
     NN = Normnorm()
-    record = "mba knp brangx ngga sampe sampe"
+    record = "nawarnya"
     print (record)
     print (NN.norm(record))

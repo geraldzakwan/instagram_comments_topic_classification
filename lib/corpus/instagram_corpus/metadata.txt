@@ -1,0 +1,5 @@
+transaksi 1 46
+servis 2 17
+produk 3 65
+misuh 4 51
+lainnya 5 71
