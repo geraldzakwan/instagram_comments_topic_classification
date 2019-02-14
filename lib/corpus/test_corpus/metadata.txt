@@ -1,2 +1,5 @@
-good 0
-bad 1
+pengiriman 1
+transaksi 2
+servis 3
+produk 4
+lainnya 5

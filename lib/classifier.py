@@ -1,4 +1,5 @@
 import os
+import sys
 import pickle
 import normnorm_v1 as NN
 
@@ -26,7 +27,7 @@ class Classifier():
         self.normalization = NN.Normnorm()
 
     def preprocess_text(self, text):
-        return self.normalization.norm(text)
+        return self.normalization.norm(text.lower())
 
     def extract_feature(self, text):
         return self.feature_extractor.transform([text])
@@ -54,4 +55,4 @@ class Classifier():
 
 if __name__ == '__main__':
     classifier = Classifier()
-    print(classifier.get_class('Contoh kalimat'))
+    print(classifier.get_class(sys.argv[1]))
