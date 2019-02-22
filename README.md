@@ -2,4 +2,4 @@
 Topic Classification for Indonesian Social Media Comments
 
 # run command
-python app/api/app.py
+PYTHONPATH=':lib/' python app/api/app.py
